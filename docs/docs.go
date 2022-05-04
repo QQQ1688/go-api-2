@@ -25,9 +25,9 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/log": {
-            "post": {
-                "description": "add by json body",
+        "/logs": {
+            "get": {
+                "description": "get all ipLogs",
                 "consumes": [
                     "application/json"
                 ],
@@ -35,20 +35,9 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "iplogs"
+                    "ipLogs"
                 ],
-                "summary": "Add an ipLog",
-                "parameters": [
-                    {
-                        "description": "Add iplogs",
-                        "name": "ipLog",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/models.Log"
-                        }
-                    }
-                ],
+                "summary": "Get all ipLogs",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -75,11 +64,9 @@ const docTemplate = `{
                         }
                     }
                 }
-            }
-        },
-        "/logs": {
-            "get": {
-                "description": "get all ipLogs",
+            },
+            "post": {
+                "description": "add by json body",
                 "consumes": [
                     "application/json"
                 ],
@@ -87,9 +74,20 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "ipLogs"
+                    "iplogs"
                 ],
-                "summary": "Get all ipLogs",
+                "summary": "Add an ipLog",
+                "parameters": [
+                    {
+                        "description": "Add iplogs",
+                        "name": "ipLog",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Log"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",

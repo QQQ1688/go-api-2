@@ -36,7 +36,33 @@ info:
   title: Swagger Example API
   version: "1.0"
 paths:
-  /log:
+  /logs:
+    get:
+      consumes:
+      - application/json
+      description: get all ipLogs
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+      summary: Get all ipLogs
+      tags:
+      - ipLogs
     post:
       consumes:
       - application/json
@@ -70,33 +96,6 @@ paths:
       summary: Add an ipLog
       tags:
       - iplogs
-  /logs:
-    get:
-      consumes:
-      - application/json
-      description: get all ipLogs
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            type: string
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/httputil.HTTPError'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/httputil.HTTPError'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/httputil.HTTPError'
-      summary: Get all ipLogs
-      tags:
-      - ipLogs
   /logs/:ip:
     get:
       consumes:

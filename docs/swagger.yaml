@@ -1,0 +1,121 @@
+basePath: /api/v1
+definitions:
+  httputil.HTTPError:
+    properties:
+      code:
+        example: 400
+        type: integer
+      message:
+        example: status bad request
+        type: string
+    type: object
+  models.Log:
+    properties:
+      IP:
+        description: json 回傳時IP 的 Key 對應到 IP
+        type: string
+      Status:
+        type: number
+      Time:
+        description: json 回傳時Time 的 Key 對應到的 Time 要跟資料庫欄位相同
+        type: string
+      Url:
+        type: string
+    type: object
+host: localhost:8088
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is a sample server mysql server.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Swagger Example API
+  version: "1.0"
+paths:
+  /log:
+    post:
+      consumes:
+      - application/json
+      description: add by json body
+      parameters:
+      - description: Add iplogs
+        in: body
+        name: ipLog
+        required: true
+        schema:
+          $ref: '#/definitions/models.Log'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+      summary: Add an ipLog
+      tags:
+      - iplogs
+  /logs:
+    get:
+      consumes:
+      - application/json
+      description: get all ipLogs
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+      summary: Get all ipLogs
+      tags:
+      - ipLogs
+  /logs/:ip:
+    get:
+      consumes:
+      - application/json
+      description: get string by IP
+      parameters:
+      - description: iplogs search by string
+        format: IP
+        in: query
+        name: ip
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      summary: Show a IP's logs
+      tags:
+      - Logs
+securityDefinitions:
+  BasicAuth:
+    type: basic
+swagger: "2.0"
